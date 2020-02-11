@@ -18,6 +18,20 @@ class UserController {
   }
 
   async update(req, res) {
+    const { email, oldPassword } = req.body;
+
+    const user = await User.findByPk(req.UserId);
+
+    // Verifica e-mail caso o user esteja mudando de e-mail
+
+    if (email != user.email) {
+      const userExists = await User.findOne({ where: { email } });
+
+      if (userExists) {
+        return res.status(400).json({ error: 'Usuário já existe!' });
+      }
+    }
+
     return res.json({ ok: true });
   }
 }
