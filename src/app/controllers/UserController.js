@@ -37,6 +37,23 @@ class UserController {
   }
 
   async update(req, res) {
+    /* Cria schema de validação
+    Qual a forma do objeto?
+    Quais os campos?
+    */
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      email: Yup.string().email(),
+      oldPassword: Yup.string().min(6),
+      password: Yup.string().min(6).when('oldPassword', (oldPassword, field) => (oldPassword ? field.required() : field)),
+    });
+
+    // Valida dados de entrada com base no schema
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Dados incorretos!' });
+    }
+
     const { email, oldPassword } = req.body;
 
     const user = await User.findByPk(req.userId);
@@ -70,10 +87,3 @@ class UserController {
 }
 
 export default new UserController();
-
-
-/* ANOTAÇÕES:
-  object(*objeto*) -> "req"
-  required() -> obrigatório
-  min() -> mínimo
-*/
