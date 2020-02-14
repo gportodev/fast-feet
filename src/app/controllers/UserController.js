@@ -77,13 +77,9 @@ class UserController {
 
     // Atualiza os dados depois das validações
 
-    const { id, name } = await user.update(req.body);
+    await user.update(req.body);
 
-    return res.json({
-      id,
-      name,
-      email,
-    });
+    return res.json({ message: 'Dados atualizados com sucesso!' });
   }
 }
 

@@ -30,9 +30,9 @@ class RecipientController {
       return res.status(400).json({ error: 'Usuário já tem endereço cadastrado!' });
     }
 
-    const recipient = await Recipient.create(req.body);
+    await Recipient.create(req.body);
 
-    return res.json(recipient);
+    return res.json({ message: 'Destinatário cadastrado com sucesso!' });
   }
 }
 
