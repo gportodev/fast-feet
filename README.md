@@ -1,2 +1,2 @@
 # FastFeet
-Desafio 2
+A aplicação voltada para uma transportadora fictícia
