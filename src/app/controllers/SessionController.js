@@ -12,7 +12,6 @@ class SessionController {
       password: Yup.string().required(),
     });
 
-    // Valida dados de entrada com base no schema
 
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Dados incorretos!' });
